@@ -1,12 +1,12 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
+// Navigation
 export type RootStackParamList = {
   Search: undefined;
   "Weather Details": { city: string };
   "Weather Forecast": { city: string };
   "Not Found Page": undefined;
 };
-
 export type SearchScreenProps = NativeStackScreenProps<
   RootStackParamList,
   "Search"
@@ -24,15 +24,37 @@ export type NotFoundScreenProps = NativeStackScreenProps<
   "Not Found Page"
 >;
 
+// Weather details
 export interface WeatherData {
-  main: { temp: number; temp_min: number; temp_max: number };
-  weather: [{ main: string }];
+  main: {
+    temp: number;
+    temp_min: number;
+    temp_max: number;
+    pressure: number;
+    feels_like: number;
+  };
+  weather: [{ main: string; icon: string }];
+  clouds: {
+    all: string;
+  };
 }
 
+// Forecast details
 export interface WeatherForecast {
-  list: [{ date: Date; minTemp: number; maxTemp: number }];
+  list: [
+    {
+      date: Date;
+      minTemp: number;
+      maxTemp: number;
+      clouds: number;
+      windSpeed: number;
+      icon: string;
+      main: string;
+    }
+  ];
 }
 
+// API response data for forecast
 export interface responseData {
   message: string;
   cod: string;
@@ -76,6 +98,7 @@ export interface responseData {
   ];
 }
 
+// Weather details
 export interface weatherObject {
   description: string;
   icon: string;

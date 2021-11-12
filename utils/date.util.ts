@@ -40,3 +40,19 @@ export const getMonthName = () => {
 export const decorateDate = (date: Date) => {
   return `${months[date.getMonth()]} ${date.getDate()}`;
 };
+
+// Function to get name for day
+export const nameDate = (date: Date) => {
+  const today = new Date();
+
+  let name = "";
+  if (date.getDate() == today.getDate()) {
+    name = "Today";
+  } else if (date.getDate() == today.getDate() + 1) {
+    name = "Tomorrow";
+  } else {
+    name = days[date.getDay()];
+  }
+
+  return name;
+};

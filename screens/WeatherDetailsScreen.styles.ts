@@ -19,8 +19,13 @@ export const root = StyleSheet.create({
 
   cityName: {
     textTransform: "uppercase",
-    fontSize: 60,
+    fontSize: 40,
     textAlign: "center",
+    color: "#FEFEFE",
+  },
+
+  pressure: {
+    fontSize: 10,
     color: "#FEFEFE",
   },
 
@@ -30,10 +35,13 @@ export const root = StyleSheet.create({
     color: "#FEFEFE",
   },
 
-  currentTemp: {
-    paddingTop: 30,
-    paddingBottom: 30,
-    fontSize: 80,
+  image: {
+    width: 70,
+    height: 70,
+  },
+
+  clouds: {
+    fontSize: 12,
     color: "#FEFEFE",
   },
 
@@ -43,9 +51,19 @@ export const root = StyleSheet.create({
     color: "#FEFEFE",
   },
 
+  currentTemp: {
+    paddingBottom: 30,
+    fontSize: 80,
+    color: "#FEFEFE",
+  },
+
+  feelsLike: {
+    color: "#FEFEFE",
+  },
+
   minMax: {
     padding: 2,
-    fontSize: 18,
+    fontSize: 15,
     color: "#FEFEFE",
   },
 });

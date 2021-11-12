@@ -51,7 +51,7 @@ function WeatherForecastScreen({
 
       <View style={root.forecastTable}>
         {forecastData.list.map((ele) => (
-          <View key={ele.minTemp} style={root.row}>
+          <View key={ele.minTemp + ele.maxTemp} style={root.row}>
             <Text>{decorateDate(ele.date)}</Text>
             <Text>{ele.minTemp}&#8451;</Text>
             <Text>{ele.maxTemp}&#8451;</Text>

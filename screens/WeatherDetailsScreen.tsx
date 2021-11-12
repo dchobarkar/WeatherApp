@@ -3,6 +3,8 @@ import { View, Text, Button } from "react-native";
 import { OPEN_WEATHER_API_KEY } from "@env";
 
 import { WeatherData, WeatherDetailsScreenProps } from "../utils/types";
+import { checkForRain } from "../utils/details.util";
+import sendPushNotification from "../utils/pushNotification.util";
 import LoaderScreen from "./LoaderScreen";
 import { getMonthName, getWeekDay } from "../utils/date.util";
 import { getRoundOf } from "../utils/math.util";
@@ -28,6 +30,13 @@ function WeatherDetailsScreen({
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${OPEN_WEATHER_API_KEY}`
       );
       const json = await response.json();
+
+      const { isRain, title, des } = checkForRain(json.weather);
+
+      if (isRain) {
+        sendPushNotification(title, des);
+      }
+
       setWeatherData(json);
     } catch (error) {
       console.error(error);

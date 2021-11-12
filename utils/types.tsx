@@ -75,3 +75,10 @@ export interface responseData {
     }
   ];
 }
+
+export interface weatherObject {
+  description: string;
+  icon: string;
+  id: number;
+  main: string;
+}

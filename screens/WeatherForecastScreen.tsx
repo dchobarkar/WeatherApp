@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image } from "react-native";
 import { OPEN_WEATHER_API_KEY } from "@env";
 
-import { WeatherForecast, WeatherForecastScreenProps } from "../utils/types";
-import { calculateForecast } from "../utils/forecast.util";
+import {
+  PredictionDataObj,
+  WeatherForecastObj,
+  WeatherForecastScreenProps,
+} from "../utils/types";
+import { bestDayToSell, calculateForecast } from "../utils/forecast.util";
 import { decorateDate, nameDate } from "../utils/date.util";
 
 import LoaderScreen from "./LoaderScreen";
@@ -15,7 +19,7 @@ function WeatherForecastScreen({
 }: WeatherForecastScreenProps) {
   const { city } = route.params;
 
-  const [forecastData, setForecastData] = useState<WeatherForecast>({
+  const [forecastData, setForecastData] = useState<WeatherForecastObj>({
     list: [
       {
         date: new Date(),
@@ -28,6 +32,11 @@ function WeatherForecastScreen({
       },
     ],
   });
+  const [PredictionDataObj, setPredictionData] = useState<PredictionDataObj>({
+    umbrella: "",
+    jacket: "",
+    hat: [""],
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   // Function to get the weather forecast information
@@ -37,11 +46,10 @@ function WeatherForecastScreen({
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${OPEN_WEATHER_API_KEY}`
       );
-
       const json = await response.json();
-      const data = calculateForecast(json);
 
-      setForecastData(data);
+      setPredictionData(bestDayToSell(json));
+      setForecastData(calculateForecast(json));
     } catch (error) {
       console.error(error);
     } finally {
@@ -89,6 +97,22 @@ function WeatherForecastScreen({
             </View>
           </View>
         ))}
+      </View>
+
+      <View style={root.predictionBox}>
+        <Text style={root.umbrella}>
+          Best day to sell an umbrella is {PredictionDataObj.umbrella}
+        </Text>
+
+        <Text style={root.jacket}>
+          Best day to sell a jacket is {PredictionDataObj.jacket}
+        </Text>
+
+        <Text style={root.hat}>Wearing hat is recommended on </Text>
+
+        <Text style={root.hat}>
+          {PredictionDataObj.hat.map((day) => `${day}, `)}
+        </Text>
       </View>
     </React.Fragment>
   );

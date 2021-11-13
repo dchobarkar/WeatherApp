@@ -56,3 +56,8 @@ export const nameDate = (date: Date) => {
 
   return name;
 };
+
+// Function to get hours from given date
+export const hours = (date: Date) => {
+  return new Date(date).getHours();
+};

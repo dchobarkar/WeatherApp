@@ -1,7 +1,7 @@
-import { weatherObject } from "./types";
+import { isRainObj } from "./types";
 
 // Function to check if there is a condition for rain
-export const checkForRain = (data: weatherObject[]) => {
+export const checkForRain = (data: isRainObj[]) => {
   let isRain: boolean = false;
   let title = "";
   let des = "";

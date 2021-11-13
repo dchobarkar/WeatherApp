@@ -25,7 +25,7 @@ export type NotFoundScreenProps = NativeStackScreenProps<
 >;
 
 // Weather details
-export interface WeatherData {
+export interface WeatherDetailsObj {
   main: {
     temp: number;
     temp_min: number;
@@ -40,7 +40,7 @@ export interface WeatherData {
 }
 
 // Forecast details
-export interface WeatherForecast {
+export interface WeatherForecastObj {
   list: [
     {
       date: Date;
@@ -55,7 +55,7 @@ export interface WeatherForecast {
 }
 
 // API response data for forecast
-export interface responseData {
+export interface ForecastResponseObj {
   message: string;
   cod: string;
   count: number;
@@ -63,7 +63,7 @@ export interface responseData {
     {
       id: number;
       name: string;
-      dt_txt: number;
+      dt_txt: Date;
       coord: { lat: number; lon: number };
       main: {
         temp: number;
@@ -71,6 +71,7 @@ export interface responseData {
         humidity: number;
         temp_min: number;
         temp_max: number;
+        feels_like: number;
       };
       dt: number;
       wind: {
@@ -79,8 +80,9 @@ export interface responseData {
         gust: number;
       };
       sys: {
-        country: string;
+        pod: string;
       };
+      pop: number;
       rain: string;
       snow: string;
       clouds: {
@@ -98,10 +100,25 @@ export interface responseData {
   ];
 }
 
-// Weather details
-export interface weatherObject {
+// Is rain object
+export interface isRainObj {
   description: string;
   icon: string;
   id: number;
   main: string;
+}
+
+// Prediction data
+export interface PredictionDataObj {
+  umbrella: string;
+  jacket: string;
+  hat: Array<string>;
+}
+
+// Prediction Array
+export interface PredictionArrObj {
+  uw: number;
+  jw: number;
+  hw: number;
+  date: Date;
 }

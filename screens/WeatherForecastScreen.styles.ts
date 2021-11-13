@@ -23,7 +23,7 @@ export const root = StyleSheet.create({
 
   forecastTable: {
     width: "80%",
-    height: "60%",
+    height: "55%",
     justifyContent: "space-evenly",
     backgroundColor: "rgba(255,255,255,0.1)",
   },
@@ -80,6 +80,33 @@ export const root = StyleSheet.create({
 
   windSpeed: {
     fontSize: 10,
+    color: "#FEFEFE",
+  },
+
+  predictionBox: {
+    width: "80%",
+    marginTop: 10,
+    paddingTop: 7,
+    paddingBottom: 7,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    backgroundColor: "rgba(255,255,255,0.1)",
+  },
+
+  umbrella: {
+    paddingBottom: 5,
+    fontSize: 13,
+    color: "#FEFEFE",
+  },
+
+  jacket: {
+    paddingBottom: 5,
+    fontSize: 13,
+    color: "#FEFEFE",
+  },
+
+  hat: {
+    fontSize: 13,
     color: "#FEFEFE",
   },
 });

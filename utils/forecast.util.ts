@@ -149,8 +149,8 @@ const calculateWeight = (
     // Cases for thunderstorm
     case id < 300:
       u = 20;
-      j = -100;
-      h = 0;
+      j = -1000;
+      h = -1000;
       break;
 
     // Cases for drizzle
@@ -169,30 +169,30 @@ const calculateWeight = (
 
     // Cases for snow
     case id < 700:
-      u = -10;
+      u = -1000;
       j = 40;
-      h = 40;
+      h = 30;
       break;
 
     // Cases for Atmosphere
     case id < 800:
-      u = -100;
-      j = -10;
-      h = -100;
+      u = -1000;
+      j = -1000;
+      h = -1000;
       break;
 
     // Cases for clear
     case id == 800:
       u = 0;
       j = 10;
-      h = 40;
+      h = 30;
       break;
 
     // Cases for clouds
     case id < 900:
       u = 10;
       j = 0;
-      h = -10;
+      h = 0;
       break;
     default:
   }
@@ -205,34 +205,34 @@ const calculateWeight = (
   // Probability of Precipitation weightage
   switch (true) {
     case pop <= 0.1:
-      u = 1;
+      u = 10;
       break;
     case pop <= 0.2:
-      u = 2;
+      u = 20;
       break;
     case pop <= 0.3:
-      u = 3;
+      u = 30;
       break;
     case pop <= 0.4:
-      u = 4;
+      u = 40;
       break;
     case pop <= 0.5:
-      u = 5;
+      u = 50;
       break;
     case pop <= 0.6:
-      u = 6;
+      u = 60;
       break;
     case pop <= 0.7:
-      u = 7;
+      u = 70;
       break;
     case pop <= 0.8:
-      u = 8;
+      u = 80;
       break;
     case pop <= 0.9:
-      u = 9;
+      u = 90;
       break;
     case pop <= 1:
-      u = 10;
+      u = 100;
       break;
 
     default:
@@ -243,36 +243,36 @@ const calculateWeight = (
   // Wind speed weightage
   switch (true) {
     case speed <= 0.4:
-      u = 10;
-      h = 10;
-      break;
-    case speed <= 1.3:
-      u = 9;
-      h = 9;
-      break;
-    case speed <= 3.1:
-      u = 8;
-      h = 8;
-      break;
-    case speed <= 5.7:
-      u = 7;
-      h = 7;
-      break;
-    case speed <= 8:
-      u = 6;
-      h = 6;
-      break;
-    case speed <= 10.7:
       u = 5;
       h = 5;
       break;
-    case speed <= 13.9:
+    case speed <= 1.3:
+      u = 4;
+      h = 4;
+      break;
+    case speed <= 3.1:
+      u = 3;
+      h = 3;
+      break;
+    case speed <= 5.7:
+      u = 2;
+      h = 2;
+      break;
+    case speed <= 8:
+      u = 1;
+      h = 1;
+      break;
+    case speed <= 10.7:
       u = 0;
       h = 0;
       break;
+    case speed <= 13.9:
+      u = -1000;
+      h = -1000;
+      break;
     case speed > 13.9:
-      u = -100;
-      h = -100;
+      u = -1000;
+      h = -1000;
       break;
 
     default:
@@ -284,48 +284,48 @@ const calculateWeight = (
   // Temperature weightage
   switch (true) {
     case temp < 0:
-      j = 10;
-      h = 10;
+      j = 80;
+      h = 50;
       break;
     case temp < 5:
-      j = 9;
-      h = 9;
+      j = 70;
+      h = 40;
       break;
     case temp < 10:
-      j = 8;
-      h = 8;
+      j = 60;
+      h = 30;
       break;
     case temp < 15:
-      j = 7;
-      h = 7;
+      j = 50;
+      h = 20;
       break;
     case temp < 20:
-      j = 6;
-      h = 0;
+      j = 40;
+      h = 10;
       break;
     case temp < 25:
-      j = 5;
+      j = 30;
       h = 0;
       break;
     case temp < 30:
-      j = 4;
-      h = 0;
+      j = 20;
+      h = 10;
       break;
     case temp < 35:
-      j = 3;
-      h = 7;
+      j = 10;
+      h = 20;
       break;
     case temp < 40:
-      j = 2;
-      h = 8;
+      j = 0;
+      h = 30;
       break;
     case temp <= 45:
-      j = 1;
-      h = 9;
+      j = -1000;
+      h = 40;
       break;
     case temp > 45:
-      j = 0;
-      h = 10;
+      j = -1000;
+      h = 50;
       break;
 
     default:
@@ -396,10 +396,14 @@ const calculateBestDay = (avgArr: PredictionArrObj[]) => {
       jMax = ele.jw;
     }
 
-    if (ele.hw > 15) {
+    if (ele.hw > 20) {
       hat.push(nameDate(new Date(ele.date)));
     }
   });
+
+  if (hat.length === 0) {
+    hat.push("None");
+  }
 
   return [nameDate(new Date(uDate)), nameDate(new Date(jDate)), hat];
 };

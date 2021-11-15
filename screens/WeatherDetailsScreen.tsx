@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Button, Image } from "react-native";
 import { OPEN_WEATHER_API_KEY } from "@env";
 
-import { WeatherDetailsObj, WeatherDetailsScreenProps } from "../utils/types";
+import {
+  CityListObj,
+  WeatherDetailsObj,
+  WeatherDetailsScreenProps,
+} from "../utils/types";
 import { checkForRain } from "../utils/details.util";
 import sendPushNotification from "../utils/pushNotification.util";
 import { getMonthName, getWeekDay } from "../utils/date.util";
@@ -15,7 +19,7 @@ function WeatherDetailsScreen({
   route,
   navigation,
 }: WeatherDetailsScreenProps) {
-  const { city } = route.params;
+  const { name, country, id, lat, lon } = route.params;
 
   const [WeatherDetailsObj, setWeatherDetailsObj] = useState<WeatherDetailsObj>(
     {
@@ -27,11 +31,11 @@ function WeatherDetailsScreen({
   const [isLoading, setIsLoading] = useState(false);
 
   // Function to get the weather information
-  const getWeather = async (city: string) => {
+  const getWeather = async (lat: number, lon: number) => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${OPEN_WEATHER_API_KEY}`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${OPEN_WEATHER_API_KEY}`
       );
       const json = await response.json();
 
@@ -51,7 +55,7 @@ function WeatherDetailsScreen({
   };
 
   useEffect(() => {
-    getWeather(city);
+    getWeather(lat, lon);
   }, []);
 
   const page = isLoading ? (
@@ -59,7 +63,7 @@ function WeatherDetailsScreen({
   ) : (
     <React.Fragment>
       <View style={root.detailsContainer}>
-        <Text style={root.cityName}>{city}</Text>
+        <Text style={root.cityName}>{name}</Text>
 
         <Text style={root.pressure}>
           {WeatherDetailsObj.main.pressure} &#13169;
@@ -99,7 +103,7 @@ function WeatherDetailsScreen({
       <Button
         title="5 Day forecast"
         color="#E7D177"
-        onPress={() => navigation.navigate("Weather Forecast", { city: city })}
+        onPress={() => navigation.navigate("Weather Forecast", { city: name })}
       />
     </React.Fragment>
   );

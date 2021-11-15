@@ -22,4 +22,14 @@ export const root = StyleSheet.create({
     textAlign: "center",
     color: "#FEFEFF",
   },
+
+  dropdownList: {
+    marginBottom: 10,
+  },
+
+  dropdownMenu: {
+    paddingBottom: 5,
+    textAlign: "center",
+    color: "#FEFEFE",
+  },
 });

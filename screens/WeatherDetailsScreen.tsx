@@ -103,7 +103,15 @@ function WeatherDetailsScreen({
       <Button
         title="5 Day forecast"
         color="#E7D177"
-        onPress={() => navigation.navigate("Weather Forecast", { city: name })}
+        onPress={() =>
+          navigation.navigate("Weather Forecast", {
+            name: name,
+            country: country,
+            id: id,
+            lon: lon,
+            lat: lat,
+          })
+        }
       />
     </React.Fragment>
   );

@@ -10,7 +10,13 @@ export type RootStackParamList = {
     lat: number;
     id: number;
   };
-  "Weather Forecast": { city: string };
+  "Weather Forecast": {
+    name: string;
+    country: string;
+    lon: number;
+    lat: number;
+    id: number;
+  };
   "Not Found Page": undefined;
 };
 export type SearchScreenProps = NativeStackScreenProps<

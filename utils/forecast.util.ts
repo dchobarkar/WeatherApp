@@ -39,13 +39,13 @@ export const calculateForecast = (data: ForecastResponseObj) => {
   data.list.map((ele) => {
     date = new Date(ele.dt_txt);
 
-    if (currentDate.getDate() == date.getDate()) {
+    if (currentDate.getDate() === date.getDate()) {
       minTemp = minTemp > ele.main.temp_min ? ele.main.temp_min : minTemp;
       maxTemp = maxTemp < ele.main.temp_max ? ele.main.temp_max : maxTemp;
       clouds = clouds + ele.clouds.all;
       windSpeed = windSpeed + ele.wind.speed;
 
-      if (date.getHours() == hour) {
+      if (date.getHours() === hour) {
         icon = ele.weather[0].icon;
         main = ele.weather[0].main;
       }
@@ -348,7 +348,7 @@ const calculateCumWeight = (predictionArr: PredictionArrObj[]) => {
   let d = 0;
   predictionArr.map((ele) => {
     let date = new Date(ele.date);
-    if (date.getDate() == today.getDate()) {
+    if (date.getDate() === today.getDate()) {
       uw = uw + ele.uw;
       jw = jw + ele.jw;
       hw = hw + ele.hw;

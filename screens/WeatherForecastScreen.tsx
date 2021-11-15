@@ -12,12 +12,13 @@ import { decorateDate, nameDate } from "../utils/date.util";
 
 import LoaderScreen from "./LoaderScreen";
 import { root } from "./WeatherForecastScreen.styles";
+import { getRanId } from "../utils/math.util";
 
 function WeatherForecastScreen({
   route,
   navigation,
 }: WeatherForecastScreenProps) {
-  const { city } = route.params;
+  const { name, country, lat, lon, id } = route.params;
 
   const [forecastData, setForecastData] = useState<WeatherForecastObj>({
     list: [
@@ -40,11 +41,11 @@ function WeatherForecastScreen({
   const [isLoading, setIsLoading] = useState(false);
 
   // Function to get the weather forecast information
-  const getForecast = async (city: string) => {
+  const getForecast = async (lat: number, lon: number) => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${OPEN_WEATHER_API_KEY}`
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${OPEN_WEATHER_API_KEY}`
       );
       const json = await response.json();
 
@@ -58,7 +59,7 @@ function WeatherForecastScreen({
   };
 
   useEffect(() => {
-    getForecast(city);
+    getForecast(lat, lon);
   }, []);
 
   const page = isLoading ? (
@@ -67,11 +68,11 @@ function WeatherForecastScreen({
     <React.Fragment>
       <Text style={root.header}>5-day forecast</Text>
 
-      <Text style={root.cityName}>{city}</Text>
+      <Text style={root.cityName}>{name}</Text>
 
       <View style={root.forecastTable}>
         {forecastData.list.map((ele) => (
-          <View key={ele.minTemp + ele.maxTemp} style={root.row}>
+          <View key={getRanId()} style={root.row}>
             <View style={root.dayBox}>
               <Text style={root.name}>{nameDate(ele.date)}</Text>
 

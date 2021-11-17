@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Button, Image } from "react-native";
 import { OPEN_WEATHER_API_KEY } from "@env";
 
-import {
-  CityListObj,
-  WeatherDetailsObj,
-  WeatherDetailsScreenProps,
-} from "../utils/types";
+import { WeatherDetailsObj, WeatherDetailsScreenProps } from "../utils/types";
 import { checkForRain } from "../utils/details.util";
 import sendPushNotification from "../utils/pushNotification.util";
 import { getMonthName, getWeekDay } from "../utils/date.util";

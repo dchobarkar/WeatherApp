@@ -49,8 +49,8 @@ function WeatherForecastScreen({
       );
       const json = await response.json();
 
-      setPredictionData(bestDayToSell(json));
       setForecastData(calculateForecast(json));
+      setPredictionData(bestDayToSell(json));
     } catch (error) {
       console.error(error);
     } finally {

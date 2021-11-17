@@ -61,3 +61,15 @@ export const nameDate = (date: Date) => {
 export const hours = (date: Date) => {
   return new Date(date).getHours();
 };
+
+// Function to get date from string
+export const stringToDate = (dateString: string) => {
+  let dateArr = dateString.split(/\D/);
+  return new Date(
+    Number(dateArr[0]),
+    Number(dateArr[1]) - 1,
+    Number(dateArr[2]),
+    Number(dateArr[3]),
+    Number(dateArr[4])
+  );
+};

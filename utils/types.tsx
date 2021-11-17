@@ -75,7 +75,7 @@ export interface ForecastResponseObj {
     {
       id: number;
       name: string;
-      dt_txt: Date;
+      dt_txt: string;
       coord: { lat: number; lon: number };
       main: {
         temp: number;

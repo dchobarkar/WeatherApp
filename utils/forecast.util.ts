@@ -1,5 +1,5 @@
 import { getRoundOf } from "./math.util";
-import { hours, nameDate } from "./date.util";
+import { hours, nameDate, stringToDate } from "./date.util";
 import {
   ForecastResponseObj,
   PredictionArrObj,
@@ -32,12 +32,12 @@ export const calculateForecast = (data: ForecastResponseObj) => {
 
   let today = new Date();
   let currentDate = today;
-  let date = new Date(data.list[0].dt_txt);
+  let date = stringToDate(data.list[0].dt_txt);
 
   const hour = today.getHours() - (today.getHours() % 3);
 
   data.list.map((ele) => {
-    date = new Date(ele.dt_txt);
+    date = stringToDate(ele.dt_txt);
 
     if (currentDate.getDate() === date.getDate()) {
       minTemp = minTemp > ele.main.temp_min ? ele.main.temp_min : minTemp;
@@ -95,7 +95,7 @@ export const bestDayToSell = (data: ForecastResponseObj) => {
 
   // Calculate weight for each time slot
   data.list.map((ele) => {
-    if (isWorkingHour(ele.dt_txt)) {
+    if (isWorkingHour(stringToDate(ele.dt_txt))) {
       const [uw, jw, hw] = calculateWeight(
         ele.weather[0].id,
         ele.pop,
@@ -103,7 +103,12 @@ export const bestDayToSell = (data: ForecastResponseObj) => {
         ele.main.feels_like
       );
 
-      predictionArr.push({ uw: uw, jw: jw, hw: hw, date: ele.dt_txt });
+      predictionArr.push({
+        uw: uw,
+        jw: jw,
+        hw: hw,
+        date: stringToDate(ele.dt_txt),
+      });
     }
   });
 

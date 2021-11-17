@@ -13,7 +13,7 @@ import { root } from "./SearchScreen.styles";
 import { getCities } from "../utils/search.util";
 
 function SearchScreen({ navigation }: SearchScreenProps) {
-  const [cityInput, setCityInput] = useState<string>("");
+  const apiKey = OPEN_WEATHER_API_KEY;
   const [cityList, setCityList] = useState<CityListObj[]>([]);
   const [cityObj, setCityObj] = useState<CityListObj>({
     name: "",
@@ -27,9 +27,10 @@ function SearchScreen({ navigation }: SearchScreenProps) {
   const geoCoding = async (cityName: string) => {
     try {
       const response = await fetch(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${OPEN_WEATHER_API_KEY}`
+        `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${apiKey}`
       );
       const json = await response.json();
+
       setCityList(getCities(json));
     } catch (error) {
       console.error(error);
@@ -44,14 +45,14 @@ function SearchScreen({ navigation }: SearchScreenProps) {
 
   return (
     <View style={root.container}>
-      <Text style={root.header}>Welcome to my Weather App.</Text>
+      <Text style={root.header}>Get current weather</Text>
 
       <TextInput
         style={root.textInput}
         autoCapitalize="words"
         placeholder="Enter your city"
         onChangeText={(input) => geoCoding(input)}
-        defaultValue={cityInput}
+        defaultValue={cityObj.name}
       />
 
       <View style={root.dropdownList}>

@@ -18,7 +18,7 @@ function WeatherForecastScreen({
   route,
   navigation,
 }: WeatherForecastScreenProps) {
-  const { name, country, lat, lon, id } = route.params;
+  const { name, lat, lon } = route.params;
 
   const [forecastData, setForecastData] = useState<WeatherForecastObj>({
     list: [
